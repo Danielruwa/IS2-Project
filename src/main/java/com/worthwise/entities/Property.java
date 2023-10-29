@@ -30,6 +30,9 @@ public class Property {
     private boolean hasPool;
     private String otherAmenities;
 
+    @Column(name = "security_rating")
+    private int securityRating; // 1-10 where 1 is very insecure and 10 extremely secure
+
     private double estimatedPrice;
 
     @ManyToOne
@@ -42,4 +45,21 @@ public class Property {
     @ManyToMany(mappedBy = "viewedListings")
     private Set<Buyer> viewedByBuyers;
 
+    public Property(double sizeInSqft, int rooms, String location, double price, Date builtDate, int garages, boolean hasPool, String otherAmenities, int securityRating, double estimatedPrice) {
+        this.sizeInSqft = sizeInSqft;
+        this.rooms = rooms;
+        this.location = location;
+        this.price = price;
+        this.builtDate = builtDate;
+        this.garages = garages;
+        this.hasPool = hasPool;
+        this.otherAmenities = otherAmenities;
+        this.securityRating = securityRating;
+        this.estimatedPrice = estimatedPrice;
+    }
+
+    public Property(Long sellerId) {
+        seller = new Seller();
+        seller.setSellerId(sellerId);
+    }
 }

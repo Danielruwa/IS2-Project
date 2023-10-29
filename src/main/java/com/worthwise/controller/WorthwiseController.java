@@ -7,10 +7,11 @@ import com.worthwise.service.BuyerService;
 import com.worthwise.service.SellerService;
 import com.worthwise.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class WorthwiseController {
@@ -28,11 +29,14 @@ public class WorthwiseController {
 
     // Authentication and User Management Endpoints
     @PostMapping("/register")
-    public User registerUser(@RequestBody User user, @RequestPart MultipartFile file) {
-        System.out.println(user);
-        System.out.println(file);
-        return null;
-//        return userService.createUser(user);
+    public User registerUser(@RequestBody User user) {
+        return userService.createUser(user);
+    }
+
+    @PutMapping("password-reset")
+    public ResponseEntity<?> resetPassword(@RequestBody Map<String, Object> map) {
+        Map<String, Object> passwordReset = userService.resetPassword(map);
+        return ResponseEntity.status(200).body(passwordReset);
     }
 
     @GetMapping("/test_endpoint")

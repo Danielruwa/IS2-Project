@@ -27,7 +27,6 @@ public class PropertyController {
         return propertyService.getAllProperties();
     }
 
-    // Home Value Estimation Endpoints
     @PostMapping("/estimate")
     public double estimateHomeValue(@RequestBody Property property) {
         return propertyService.estimateValue(property);
