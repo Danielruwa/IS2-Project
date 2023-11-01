@@ -1,0 +1,281 @@
+:root{
+    /* font */
+    --font-secondary: 'Mulish', sans-serif;
+    --font-primary: Pacaembu, sans-serif;
+    --font-style1: 'Signika Negative', sans-serif;
+    --font-style2: 'Space Grotesk', sans-serif;
+
+    --radius: 5px;
+
+    --color-primary: #2250f4;
+    --color-primary-dark: #1728d0;
+    --color-gray-L800: #151a1e;
+    --color-gray-L700: #33373b;
+    --color-gray-L600: #676c70;
+    --color-gray-L500: #80858a;
+    --color-gray-L400: #a3a7ac;
+    --color-gray-L300: #e7eaed;
+    --color-gray-L200: #f2f5f8;
+    --color-gray-L100: #fafbfb;
+    --color-gray-L000: #ffffff;
+
+    --color-teal-T900: #054861;
+    --color-teal-T800: #0f6a80;
+    --color-teal-T700: #139cab;
+    --color-teal-T600: #30c8c9;
+    --color-teal-T500: #5cebdf;
+    --color-teal-T400: #84f3df;
+    --color-teal-T300: #9ef9e0;
+    --color-teal-T200: #bffde7;
+    --color-teal-T100: #dffef0;
+    --color-teal-T050: #f2fef5;
+
+    --my-color-one: #eceef0;
+    --my-color-two: #ad67c8;
+    --my-color-three: #e6e8ea;
+    --my-color-four: #5e8782;
+    --my-color-five: #aaabb1;
+    --my-color-six: #212327;
+    --my-color-seven: #1b1d1e;
+    --my-color-eight: #55575b;
+    --my-color-nine: #414649;
+
+
+    --green-1: #009688;
+    --green-2: #016262;
+    --green-3: #005271;
+    --green-4: #00c4cc;
+    --green-light: #e6f8e9;
+
+    --blue-1: #7ecfff;
+    --blue-2: #455df4;
+    --blue-3: #3f89ee;
+    --blue-4: #4e5e6e;
+    --blue-5: #103c82;
+    --blue-light: #f0f5fd;
+
+    --purple-1: #9c27b0;
+    --purple-light: #e7e0fc;
+
+    --gray-1: #2C2C2C;
+    --gray-2: #191919;
+    --gray-3: #050505;
+    --gray-4: #EFEFEF;
+    --gray-5: #e1e4e9;
+
+    --orange-1: #FFA500;
+    --orange-2: #fbbe28;
+    --orange-3: #ff9800;
+    --orange-light: #fdf3e6;
+
+    --pink-1: #f84856;
+
+}
+a {
+    cursor: pointer;
+}
+.window-title{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.dashboard-button{
+    background-color: #f8f9f9;
+    font-weight: bold;
+    box-shadow: 1px 0 4px 1px rgba(0, 0, 0, .05);
+    height: 110px;
+    width: 140px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: .5em;
+    text-decoration: none;
+    transition: 500ms;
+    text-align: center;
+    box-sizing: border-box;
+    padding: 1.2em;
+}
+.dashboard-button img {
+    width: 60px;
+    height: 60px;
+}
+.dashboard-button span {
+    font-size: .82rem;
+    white-space: nowrap;
+    color: black;
+    font-weight: 700;
+}
+.dashboard-button:hover {
+    background-color: #f8f8ff;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.search-box{
+    padding: 10px 10px 10px 35px;
+    min-width: 300px;
+    background-image: url("../assets/search.png");
+    color: #666666;
+    font-size: 12px;
+    background-color: #f8f9f9;
+    border: 1px solid #c9c9c9;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 18px;
+    border-radius: 3px;
+}
+.search-box:focus {
+    outline: none;
+    border: 1px solid #65607d;
+}
+.btn-add{
+    background-color: var(--green-1);
+    border: none;
+    color:  white;
+    font-weight: bold;
+    cursor: pointer;
+    height: 35px;
+    padding: 0 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 3px;
+    text-align: center;
+}
+.btn-add img {
+    width: 25px;
+}
+.btn-add span {
+    color: white;
+}
+.action-bar {
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+.action-bar .left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.action-bar-btn{
+    box-shadow: 1px 0 10px 2px rgba(0, 0, 0, .05);
+    background-color: #f8f9f9;
+    font-weight: bold;
+    cursor: hand;
+    transition: 500ms;
+    border-radius: 4px;
+}
+.action-bar-btn:hover{
+    background-color: #e8e9e9;
+}
+.action-bar-btn img {
+    width: 25px;
+}
+
+.btn-group-first{
+    background-color: #e7e8e8;
+    border-radius: 3px 0 0 3px;
+    padding: 0.333333em 0.666667em 0.333333em 0.666667em; /* 4 8 4 8 */
+    alignment: CENTER;
+    align-items: start;
+    cursor: hand;
+}
+.btn-group-img {
+    width: 24px;
+    height: 24px;
+}
+.btn-group-first:hover{
+    background-color: #d7d8e8;
+}
+.title-small{
+    font-size: 15px;
+    font-weight: bold;
+    color: #5b6064;
+}
+.count {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+}
+.count-label {
+    font-weight: 500;
+    color: #6d6d6d;
+    font-size: 14px;
+}
+.count-value {
+    color: #6d6d6d;
+    font-size: 14px;
+}
+.btn-cancel {
+    background-color: var(--orange-1);
+    color: white;
+    transition: 500ms;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    height: 35px;
+    padding: 0 1em;
+    align-items: center;
+    font-size: 14px;
+    text-decoration: none;
+    border-radius: 3px;
+}
+.btn-cancel:hover {
+    background-color: var(--orange-3);
+}
+
+.button-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+    flex: 1;
+}
+.btn-delete,.pop-up-wrapper .table .btn-delete {
+    background-color: #d44d3b;
+    border: 2px solid #d44d3b;
+    cursor: pointer;
+    transition: 300ms;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-weight: 700;
+}
+.btn-delete span, .pop-up-wrapper .table .btn-delete span {
+    color: #ffffff;
+}
+.btn-delete:hover, .pop-up-wrapper .table .btn-delete:hover {
+    background-color: white;
+    color: #d44d3b;
+    border: 2px solid #d44d3b;
+}
+.btn-delete span:hover, .pop-up-wrapper .table .btn-delete span:hover {
+    color: #d44d3b;
+}
+.btn-create {
+    color: #1443ee;
+    background-color: white;
+    border: 1px solid #e9eaed;
+    border-radius: 4px;
+    padding: 5px 10px;
+    transition: 300ms;
+    font-weight: 700;
+    font-family: var(--font-secondary);
+    font-size: .9rem;
+    cursor: pointer;
+    display: flex;
+    gap: .2em;
+    align-items: center;
+}
+.btn-create img {
+    width: 15px;
+    height: 15px;
+}
+.btn-create:hover {
+    background-color: #1443ee;
+    color: white;
+    border: 1px solid #1443ee;
+}

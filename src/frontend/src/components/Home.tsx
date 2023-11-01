@@ -1,6 +1,12 @@
+import TopNav from "./TopNav";
+
 export default function Home() {
     return (
-        <div>This is the home page</div>
+        <>
+            <TopNav />
+            <div>This is the home page</div>
+        </>
+
     )
 
 }

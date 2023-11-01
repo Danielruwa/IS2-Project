@@ -1,0 +1,222 @@
+@import url("./general.css");
+
+.sidenav{
+    width: 20vw;
+    height: 100vh;
+    box-shadow: 1px 1px 5px #e9eaed;
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    padding: 1.6em 2em;
+    box-sizing: border-box;
+    position: sticky;
+    top: -2px;
+    background-color: hsla(0, 100%, 100%, 0.9);
+    left: 0;
+    z-index: 5;
+    transform: translateZ(0);
+}
+.sidenav .logo{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.sidenav .logo .pic {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: #e9eaed;
+}
+.sidenav .logo .text {
+    font-weight: 600;
+    font-size: 1.1rem;
+    letter-spacing: 1.5px;
+    font-family: var(--font-secondary);
+}
+
+.sidenav .wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2em;
+    padding: 1em;
+}
+.sidenav .wrapper .title{
+    font-weight: bold;
+    margin: 0 0 1em 0;
+}
+.sidenav .wrapper .links {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3em;
+}
+.sidenav .wrapper .links a {
+    color: #404447;
+    font-size: .95rem;
+    font-family: var(--font-secondary);
+    min-height: 1.525em;
+    text-decoration: none;
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}
+.sidenav .wrapper .links a img {
+    width: 20px;
+    height: 20px;
+}
+.sidenav .wrapper .links a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e9eaed;
+    position: sticky;
+    top: -2px;
+    left: 0;
+    z-index: 5;
+    transform: translateZ(0);
+    backdrop-filter: blur(10px) saturate(200%);
+    /*max-width: 100vw;*/
+    padding: 0 .3em;
+    height: 3em;
+}
+.top-nav .left-wrapper {
+    display: flex;
+    color: black;
+    text-decoration: none;
+}
+.left-wrapper > div {
+    padding: 0 1em;
+    flex: 1;
+    text-align: center;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+}
+.left-wrapper .company-logo{
+    border-right: 1px solid #e9eaed;
+}
+.left-wrapper .company-logo img {
+    width: 25px;
+    height: 25px;
+}
+.left-wrapper .org-logo {
+}
+.mid-wrapper {
+    height: 90%;
+}
+.mid-wrapper .links {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+.mid-wrapper .links a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 1em;
+    font-weight: bold;
+    font-size: .75rem;
+    font-family: var(--font-secondary);
+    gap: .5em;
+    color: #000;
+    transition: 500ms;
+    border-bottom: 2px solid #ffffffff;
+    border-top: 2px solid #ffffffff;
+    letter-spacing: 1px;
+}
+.mid-wrapper .links a:hover {
+    border-bottom: 2px solid #5b6064;
+    color: #0F1233;
+}
+.mid-wrapper .links .active {
+    border-bottom: 2px solid green;
+}
+.mid-wrapper .links a img {
+    height: 16px;
+    width: 16px;
+}
+.right-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin-right: 1em;
+}
+.right-wrapper a img {
+    height: 20px;
+    width: 20px;
+}
+.top-nav img.menu {
+    width: 26px;
+    height: 26px;
+    margin-right: 15px;
+    display: none;
+    cursor: pointer;
+}
+img.close {
+    height: 18px;
+    width: 18px;
+    cursor: pointer;
+}
+
+
+
+
+
+
+.open-wrapper {
+    position: absolute;
+    right: 0;
+    background-color: white;
+    box-shadow: 1px 1px 12px 5px #dedede;
+    top: 0;
+    padding: 1em 1em 2em 1em;
+    width: 200px;
+    display: none;
+}
+.open-wrapper .menu-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1em;
+    padding-bottom: .3em;
+    font-weight: bold;
+}
+.open-wrapper .links {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5em;
+}
+.open-wrapper .links a {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    font-weight: bold;
+    font-size: .75rem;
+    font-family: var(--font-secondary);
+    gap: .5em;
+    color: #000;
+    transition: 500ms;
+    letter-spacing: 1px;
+}
+.open-wrapper .links a:hover {
+    color: var(--color-primary);
+}
+.open-wrapper .links a img {
+    height: 16px;
+    width: 16px;
+}

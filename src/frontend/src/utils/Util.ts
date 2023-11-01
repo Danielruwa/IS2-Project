@@ -12,7 +12,7 @@ export default class Util {
     decodeToken = (token?: string | null): any | null => {
         const accessToken: string | null = localStorage.getItem("accessToken");
         if(accessToken == null) {
-            window.location.pathname = "/login"
+            return null;
         }
 
         if(!token) {
@@ -25,7 +25,7 @@ export default class Util {
         const decodedToken = this.parseJwt(token);
         if ((decodedToken.exp * 1000) < Date.now()) {
             localStorage.removeItem("access_token");
-            window.location.pathname = "/login"
+            return null;
         }
         return decodedToken;
     }
