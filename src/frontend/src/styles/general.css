@@ -117,12 +117,11 @@ a {
     background-image: url("../assets/search.png");
     color: #666666;
     font-size: 12px;
-    background-color: #f8f9f9;
     border: 1px solid #c9c9c9;
     background-repeat: no-repeat;
     background-position: 10px center;
     background-size: 18px;
-    border-radius: 3px;
+    border-radius: 300px 0 0 300px;
 }
 .search-box:focus {
     outline: none;
@@ -151,46 +150,7 @@ a {
 .btn-add span {
     color: white;
 }
-.action-bar {
-    display: flex;
-    gap: 10px;
-    justify-content: space-between;
-}
-.action-bar .left {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-.action-bar-btn{
-    box-shadow: 1px 0 10px 2px rgba(0, 0, 0, .05);
-    background-color: #f8f9f9;
-    font-weight: bold;
-    cursor: hand;
-    transition: 500ms;
-    border-radius: 4px;
-}
-.action-bar-btn:hover{
-    background-color: #e8e9e9;
-}
-.action-bar-btn img {
-    width: 25px;
-}
 
-.btn-group-first{
-    background-color: #e7e8e8;
-    border-radius: 3px 0 0 3px;
-    padding: 0.333333em 0.666667em 0.333333em 0.666667em; /* 4 8 4 8 */
-    alignment: CENTER;
-    align-items: start;
-    cursor: hand;
-}
-.btn-group-img {
-    width: 24px;
-    height: 24px;
-}
-.btn-group-first:hover{
-    background-color: #d7d8e8;
-}
 .title-small{
     font-size: 15px;
     font-weight: bold;
@@ -234,7 +194,7 @@ a {
     gap: 2em;
     flex: 1;
 }
-.btn-delete,.pop-up-wrapper .table .btn-delete {
+.btn-delete{
     background-color: #d44d3b;
     border: 2px solid #d44d3b;
     cursor: pointer;
@@ -244,15 +204,15 @@ a {
     border-radius: 4px;
     font-weight: 700;
 }
-.btn-delete span, .pop-up-wrapper .table .btn-delete span {
+.btn-delete span {
     color: #ffffff;
 }
-.btn-delete:hover, .pop-up-wrapper .table .btn-delete:hover {
+.btn-delete:hover {
     background-color: white;
     color: #d44d3b;
     border: 2px solid #d44d3b;
 }
-.btn-delete span:hover, .pop-up-wrapper .table .btn-delete span:hover {
+.btn-delete span:hover {
     color: #d44d3b;
 }
 .btn-create {
@@ -278,4 +238,71 @@ a {
     background-color: #1443ee;
     color: white;
     border: 1px solid #1443ee;
+}
+
+.required {
+    color: #FF5733;
+}
+
+
+button .hidden {
+    display: none;
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.bar {
+    width: 6px;
+    height: 20px;
+    margin: 0 4px;
+    background: #ff7f0e;
+    animation: loading 1s ease-in-out infinite;
+}
+
+.bar:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.bar:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.bar:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.bar:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+@keyframes loading {
+    0% {
+        transform: scaleY(0.4);
+    }
+    50% {
+        transform: scaleY(1);
+    }
+    100% {
+        transform: scaleY(0.4);
+    }
+}
+
+.disabledSubmit {
+    background-color: #828f8e;
+    cursor: not-allowed;
+}
+
+.required-input {
+    color: #313131;
+    font-size: .9rem;
+    font-style: italic;
+}
+
+.required {
+    color: #FF5733;
 }

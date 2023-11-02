@@ -1,0 +1,160 @@
+@import "./general.css";
+
+.login {
+    display: grid;
+    place-content: center;
+    height: 100vh;
+    font-family: var(--font-secondary);
+    background-image: linear-gradient(to right, rgba(0, 149, 255, 0.75), rgba(14, 239, 239, 0.75)), url("../assets/login-background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.login .login-wrapper .title {
+    font-size: 1.4em;
+    text-align: center;
+    padding: 8px 0;
+    font-weight: bolder;
+    text-transform: uppercase;
+    color: #e76800;
+    letter-spacing: 1px;
+}
+.login-wrapper .logo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+}
+.login .login-wrapper img{
+    width: 60px;
+}
+
+.login .login-wrapper .login-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 1em;
+    box-sizing: border-box;
+    padding: 2em 1em;
+    border-radius: 5px;
+    background-color: #fff;
+}
+.login-container {
+    width: 350px;
+}
+
+.login-container .info {
+    font-weight: bold;
+}
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: .8em;
+}
+.form .input-field {
+    font-weight: bold;
+    font-size: .8rem;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.login .login-wrapper .form input {
+    border: 1px solid #494949;
+}
+.form .input-field input, textarea {
+    background-color: #fff;
+    padding: .7em 1em;
+    border-radius: 5px;
+    flex: 1;
+    box-sizing: border-box;
+}
+.form .input-field input:focus, textarea:focus {
+    outline: 2px solid #5e878255;
+}
+.form .privacy {
+    color: var(--my-color-eight);
+    margin: 1em 0;
+    font-size: .8rem;
+}
+.form .button-wrapper {
+    display: flex;
+    gap: .5em;
+}
+.form .button-wrapper > button{
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bolder;
+    flex: 1;
+}
+.form .button-wrapper .help {
+    flex: 1;
+    background-color: #fff;
+}
+.form .button-wrapper .submit {
+    background-color: var(--my-color-four);
+    color: #fff;
+    padding: .8em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.other-links {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+.other-links a {
+    font-weight: bold;
+}
+.other-links .forgot{
+    background: none;
+    font-weight: 800;
+    text-decoration: underline;
+    color: #8c564b;
+    border: none;
+    cursor: pointer;
+
+}
+.confirm-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.confirm-form input {
+    border: 1px solid #939393;
+    padding: .7em;
+    border-radius: 4px;
+    transition: 300ms;
+    outline: 2px solid #fff;
+}
+.confirm-form input:active, .confirm-form input:focus {
+    outline: 2px solid #5cebdf;
+}
+.confirm-form .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+}
+
+.radio-group{
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+.radio-group .radio {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.radio-group .radio input {
+    background-color: green;
+}
+.radio-group .radio .label {
+    color: #2C2C2C;
+    font-weight: 600;
+    font-size: .9rem;
+}

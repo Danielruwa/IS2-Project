@@ -133,7 +133,7 @@
     font-size: .75rem;
     font-family: var(--font-secondary);
     gap: .5em;
-    color: #000;
+    color: #000000;
     transition: 500ms;
     border-bottom: 2px solid #ffffffff;
     border-top: 2px solid #ffffffff;
@@ -141,7 +141,7 @@
 }
 .mid-wrapper .links a:hover {
     border-bottom: 2px solid #5b6064;
-    color: #0F1233;
+    color: #5b6064;
 }
 .mid-wrapper .links .active {
     border-bottom: 2px solid green;
@@ -153,8 +153,18 @@
 .right-wrapper {
     display: flex;
     justify-content: center;
-    gap: 1em;
+    gap: .5em;
     margin-right: 1em;
+}
+.right-wrapper a {
+    padding: .3em .5em;
+    transition: 300ms;
+    display: grid;
+    place-content: center;
+}
+.right-wrapper a:hover {
+    background: rgba(215, 215, 215, 0.46);
+    border-radius: 3px;
 }
 .right-wrapper a img {
     height: 20px;
@@ -175,8 +185,33 @@ img.close {
 
 
 
+.search-form {
+    padding: 1em;
+    display: flex;
+    flex-direction: row;
+    /*gap: .5em;*/
+    justify-content: center;
 
+}
 
+.search-form button {
+    border-radius: 0 100px 100px 0;
+    border: 1px solid #3f89ee;
+    border-left: none;
+    padding: 0 1em;
+    background-color: #3f89ee;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    display: grid;
+    place-content: center;
+    text-align: center;
+    transition: 300ms;
+}
+
+.search-form button:hover {
+    background-color: #0051c9;
+}
 
 .open-wrapper {
     position: absolute;
