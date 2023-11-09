@@ -42,6 +42,10 @@
     width: 350px;
 }
 
+.wider {
+    width: 400px;
+}
+
 .login-container .info {
     font-weight: bold;
 }

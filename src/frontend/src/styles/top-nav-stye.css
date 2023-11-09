@@ -114,6 +114,7 @@
     height: 25px;
 }
 .left-wrapper .org-logo {
+    min-width: 15vw;
 }
 .mid-wrapper {
     height: 90%;
@@ -162,11 +163,11 @@
     display: grid;
     place-content: center;
 }
-.right-wrapper a:hover {
+.right-wrapper a:hover, .right-wrapper .account-dropdown .account:hover {
     background: rgba(215, 215, 215, 0.46);
     border-radius: 3px;
 }
-.right-wrapper a img {
+.right-wrapper img {
     height: 20px;
     width: 20px;
 }
@@ -254,4 +255,50 @@ img.close {
 .open-wrapper .links a img {
     height: 16px;
     width: 16px;
+}
+
+
+
+.account-dropdown {
+    position: relative;
+    display: grid;
+    justify-content: center;
+}
+
+.account-dropdown .account {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: center;
+    padding: 0 .5em;
+    font-weight: bold;
+}
+
+.arrow-down {
+
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    /*background-color: #fff;*/
+    min-width: 120px;
+    z-index: 1;
+    top: 30px;
+}
+
+.account-dropdown:hover .dropdown-content {
+    display: block;
+
+}
+
+.account-option {
+    text-decoration: none;
+    color: #000;
+    display: block;
+}
+
+.account-option:hover {
+    background-color: #f1f1f1;
 }

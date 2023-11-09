@@ -28,7 +28,7 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-        if (request.getServletPath().equals(Constants.CONTEXT_PATH + "/login")) {
+        if (request.getServletPath().equals("/login")) {
             filterChain.doFilter(request, response);
         } else {
             String authorizationHeader = request.getHeader(AUTHORIZATION);
@@ -60,9 +60,6 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     new ObjectMapper().writeValue(response.getOutputStream(), error);
                 }
             } else {
-                System.out.println("I reached to this point, ");
-                System.out.println("URL: " + request.getRequestURL() + "\nP: " + request.getServletPath());
-                System.out.println("Another: " + request.getContextPath());
                 filterChain.doFilter(request, response);
             }
         }

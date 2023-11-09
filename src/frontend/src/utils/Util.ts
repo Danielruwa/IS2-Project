@@ -1,9 +1,11 @@
+
+export const SERVER_URL = "http://localhost:8080/api/v1/";
 export default class Util {
     parseJwt = (token: string): any => {
-        const baseUrl = token.split('.')[1]
-        const base64 = baseUrl.replace(/-/g, '+').replace(/-/g, '/');
+        const base64Url = token.split('.')[1];
+        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16).slice(-2));
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
         }).join(''));
 
         return JSON.parse(jsonPayload);
@@ -16,7 +18,7 @@ export default class Util {
         }
 
         if(!token) {
-            token = localStorage.getItem("access_token");
+            token = localStorage.getItem("accessToken");
             if(!token) {
                 return null;
             }
@@ -24,10 +26,16 @@ export default class Util {
 
         const decodedToken = this.parseJwt(token);
         if ((decodedToken.exp * 1000) < Date.now()) {
-            localStorage.removeItem("access_token");
+            // localStorage.removeItem("accessToken");
+            console.log("Time: ", new Date(decodedToken.exp * 1000))
             return null;
         }
         return decodedToken;
+    }
+
+    formatDate = (date: string, delimiter: string = "-"): string => {
+        const d = new Date(date);
+        return ("0" + d.getDate()).slice(-2) + delimiter + ("0" + (d.getMonth() + 1)).slice(-2) + delimiter + d.getFullYear();
     }
 
 }

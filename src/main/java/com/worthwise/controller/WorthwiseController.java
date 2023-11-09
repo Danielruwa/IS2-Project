@@ -31,6 +31,7 @@ public class WorthwiseController {
     // Authentication and User Management Endpoints
     @PostMapping("/register")
     public User registerUser(@RequestBody User user) {
+
         return userService.createUser(user);
     }
 

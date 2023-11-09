@@ -1,6 +1,7 @@
 import React, {useRef, useState} from 'react';
 import "../styles/auth-style.css"
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {NotificationManager} from "react-notifications";
 
 const LoginForm: React.FC = () => {
     document.title = "Login";
@@ -8,6 +9,7 @@ const LoginForm: React.FC = () => {
     const [formData, setFormData] = useState({email: '', password: ''});
     const submitBtn: any = useRef(null);
     const loaderAnim: any = useRef(null);
+    const navigate = useNavigate();
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setFormData({...formData, [e.target.name]: e.target.value});
@@ -25,11 +27,50 @@ const LoginForm: React.FC = () => {
         params.append("email", formData.email);
         params.append("password", formData.password);
 
-        window.alert("TODO: 2nd, Nov")
+        console.log(formData)
+
         const login = async (): Promise<any> => {
-            // TODO: Perform login action
+
+            const loginResponse: any = await fetch("http://localhost:8080/login", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: params
+            }).then(res => {
+                console.log(res)
+                try {
+                    return res.json();
+                } catch (err: any) {
+                    NotificationManager.error("Error: " + err.message)
+                }
+            });
+
+            submitBtn.current.classList.remove("disabledSubmit");
+            submitBtn.current.disabled = false;
+            loaderAnim.current.classList.add("hidden");
+
+            if(loginResponse.status) {
+                NotificationManager.error("Invalid username or password");
+                return;
+            }
+
+            if (loginResponse.access_token) {
+                localStorage.setItem("Test", "this is a test")
+                localStorage.setItem("accessToken", loginResponse.access_token);
+                localStorage.setItem("user", JSON.stringify(loginResponse.user));
+                localStorage.removeItem("redirectURL")
+                NotificationManager.success("Login successful");
+                redirectURL != null ? navigate(redirectURL) : navigate("/");
+            } else {
+                NotificationManager.error("Could not login!")
+            }
+
         }
 
+        login().catch(() => {
+            NotificationManager.error("An error occurred!")
+        })
     };
 
     return (
