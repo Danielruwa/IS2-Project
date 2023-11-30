@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import TopNav from './TopNav';
 import Util, {SERVER_URL} from "../utils/Util";
 import {NotificationManager} from "react-notifications";
+import Footer from "./Footer";
 
 const MyProfile = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') ?? "{}"));
@@ -143,6 +144,8 @@ const MyProfile = () => {
                     Save Changes
                 </button>
             </div>
+
+            <Footer />
         </>
     );
 };

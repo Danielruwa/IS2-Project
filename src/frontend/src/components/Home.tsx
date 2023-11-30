@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { NotificationManager } from 'react-notifications';
 import TopNav, { Search } from './TopNav';
 import {SERVER_URL} from "../utils/Util";
+import Footer from "./Footer";
 
 const Home = () => {
     const [properties, setProperties]: any = useState([]);
@@ -48,7 +49,12 @@ const Home = () => {
                 return response.text();
             })
             .then((data) => {
-                NotificationManager.success(data)
+                if(data === "added") {
+                    NotificationManager.success("Added property to favorites");
+                } else {
+                    NotificationManager.warning("Removed property from favorites")
+                }
+
             })
             .catch((error) => {
                 NotificationManager.error(error);
@@ -72,24 +78,27 @@ const Home = () => {
                                     <p className="property-description">{property.description}</p>
                                 </Link>
                                 <p className="property-location">{property.location}</p>
-                                <p className="property-info">Price: ${property.price}</p>
                                 <p className="property-info">Size: {property.sizeInSqft} sqft</p>
 
-                                {userRole === 'BUYER' && (
-                                    <button className="add-to-favorites" onClick={() => addToFavorites(property.propertyId)}>
-                                        Add to Favorites
-                                    </button>
-                                )}
+                                <div className="button-wrapper">
+                                    {userRole === 'BUYER' && (
+                                        <button className="btn-create" onClick={() => addToFavorites(property.propertyId)}>
+                                            Add to Favorites
+                                        </button>
+                                    )}
 
-                                <Link className="estimate-link" to={`/estimate?id=${property.propertyId}`}>
-                                    Estimate Value
-                                </Link>
+                                    <Link className="btn-create" to={`/estimate?id=${property.propertyId}`}>
+                                        Estimate Value
+                                    </Link>
+                                </div>
+
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
 
+            <Footer />
         </>
     );
 };

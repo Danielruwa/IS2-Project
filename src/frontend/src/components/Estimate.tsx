@@ -4,6 +4,7 @@ import TopNav from './TopNav';
 import Util, {SERVER_URL} from "../utils/Util";
 import * as util from "util";
 import {NotificationManager} from "react-notifications";
+import Footer from "./Footer";
 
 const Estimate = () => {
     const util: Util = new Util();
@@ -141,6 +142,8 @@ const Estimate = () => {
                 {estimatedPrice !== null && <p>Estimated Value: <div className="window-title">{util.formatMoney(estimatedPrice)}</div></p>}
 
             </div>
+
+            <Footer />
         </>
     );
 };

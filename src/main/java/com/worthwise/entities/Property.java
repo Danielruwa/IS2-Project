@@ -1,6 +1,8 @@
 package com.worthwise.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +13,6 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @Entity
 public class Property {
 
@@ -47,6 +48,8 @@ public class Property {
     @JoinColumn(name = "seller_id")
     private User seller;
 
+    @JsonBackReference
+    @JsonIgnoreProperties("favoritedByBuyers")
     @ManyToMany(mappedBy = "favoriteListings", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<User> favoritedByBuyers;
 

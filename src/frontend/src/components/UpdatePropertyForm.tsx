@@ -3,6 +3,7 @@ import {Link, useNavigate, useParams} from 'react-router-dom';
 import { NotificationManager } from 'react-notifications';
 import TopNav from "./TopNav";
 import Util, { SERVER_URL } from "../utils/Util";
+import Footer from "./Footer";
 
 const UpdatePropertyForm: React.FC = () => {
     document.title = 'Update Property';
@@ -94,7 +95,6 @@ const UpdatePropertyForm: React.FC = () => {
             });
 
             if (response.ok) {
-                // Property updated successfully
                 NotificationManager.success('Property updated successfully');
                 navigate("/my-list")
             } else {
@@ -232,6 +232,8 @@ const UpdatePropertyForm: React.FC = () => {
                         </div>
                     </div>
             </div>
+
+            <Footer />
         </>
     );
 

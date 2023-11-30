@@ -147,20 +147,10 @@ public class PropertyController {
     @PostMapping("user/favorites/add")
     public ResponseEntity<String> addFavoriteProperty(@RequestParam Long userId, @RequestParam Long propertyId) {
         try {
-            userService.addFavoriteProperty(userId, propertyId);
-            return ResponseEntity.ok("Property added to favorites successfully");
+            boolean added = userService.addFavoriteProperty(userId, propertyId);
+            return ResponseEntity.ok(added ? "added" : "removed");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding property to favorites");
-        }
-    }
-
-    @PostMapping("/user/favorites/remove")
-    public ResponseEntity<String> removeFavoriteProperty(@RequestParam Long userId, @RequestParam Long propertyId) {
-        try {
-            userService.removeFavoriteProperty(userId, propertyId);
-            return ResponseEntity.ok("Property removed from favorites successfully");
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error removing property from favorites");
         }
     }
 

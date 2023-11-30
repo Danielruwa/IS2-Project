@@ -12,6 +12,8 @@ import Favorites from "./components/Favorites";
 import Search from "./components/Search";
 import Property from "./components/Property";
 import UpdatePropertyForm from "./components/UpdatePropertyForm";
+import About from "./components/About";
+import Contact from "./components/Contact";
 
 export default function Paths() {
     return (
@@ -28,6 +30,8 @@ export default function Paths() {
                 <Route path={"/estimate"} element={<Estimate/>}/>
                 <Route path={"/favorites"} element={<Favorites/>}/>
                 <Route path={"/search"} element={<Search/>}/>
+                <Route path={"/about"} element={<About/>}/>
+                <Route path={"/contact"} element={<Contact/>}/>
                 <Route path={"/property/:id"} element={<Property/>}/>
                 <Route path={"/update-property/:id"} element={<UpdatePropertyForm/>}/>
             </Routes>

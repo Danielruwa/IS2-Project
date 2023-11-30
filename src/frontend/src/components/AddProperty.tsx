@@ -3,6 +3,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import {NotificationManager} from 'react-notifications';
 import TopNav from "./TopNav";
 import Util, {SERVER_URL} from "../utils/Util";
+import Footer from "./Footer";
 
 const AddPropertyForm = (): React.ReactElement => {
     document.title = 'Add Property';
@@ -278,6 +279,8 @@ const AddPropertyForm = (): React.ReactElement => {
                         </div>
                     </div>
             </div>
+
+            <Footer />
         </>
 
     );

@@ -3,6 +3,7 @@ import {useParams, Link, useNavigate} from 'react-router-dom';
 import TopNav from './TopNav';
 import { NotificationManager } from 'react-notifications';
 import Util, { SERVER_URL } from '../utils/Util';
+import Footer from "./Footer";
 
 const Property = () => {
     const { id } = useParams();
@@ -32,8 +33,9 @@ const Property = () => {
 
         fetchProperty();
 
+        console.log(property)
         setIsPropertyCreater(user.userId === property.seller?.userId);
-    }, []);
+    }, [user.userId, property.seller]);
 
     const handleAddToFavorites = () => {
 
@@ -98,7 +100,6 @@ const Property = () => {
 
                     {user.userId ? (
                         isPropertyCreater ? (
-                            // Buttons for the property creator
                             <>
                                 <Link to={`/update-property/${id}`}>
                                     <button className="submit">Update Property</button>
@@ -106,7 +107,6 @@ const Property = () => {
                                 <button className="btn-delete" onClick={() => handleDeleteProperty(id)}>Delete Property</button>
                             </>
                         ) : (
-                            // Buttons for non-creator registered user
                             <button className="btn-add" onClick={handleAddToFavorites}>Add to Favorites</button>
                         )
                     ) : null}
@@ -121,6 +121,8 @@ const Property = () => {
 
                 </div>
             </div>
+
+            <Footer />
         </>
     );
 };

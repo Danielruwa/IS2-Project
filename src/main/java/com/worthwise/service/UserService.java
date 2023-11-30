@@ -135,33 +135,26 @@ public class UserService implements UserDetailsService {
     }
 
     @Transactional
-    public void addFavoriteProperty(Long userId, Long propertyId) {
+    public boolean addFavoriteProperty(Long userId, Long propertyId) {
         User user = getUserById(userId);
         Property property = propertyService.getPropertyById(propertyId);
-
+        boolean returnType = false;
         if (user != null && property != null) {
             Set<Property> propertyList = new HashSet<>(user.getFavoriteListings());
             if(user.getFavoriteListings().contains(property)) {
                 propertyList.remove(property);
             } else {
                 propertyList.add(property);
+                returnType = true;
             }
             user.setFavoriteListings(propertyList);
-            createUser(user);
+            userDAO.save(user);
         }
+
+        return returnType;
     }
 
     @Transactional
-    public void removeFavoriteProperty(Long userId, Long propertyId) {
-        User user = getUserById(userId);
-        Property property = propertyService.getPropertyById(propertyId);
-
-        if (user != null && property != null) {
-            user.getFavoriteListings().remove(property);
-            createUser(user);
-        }
-    }
-
     public List<Property> getFavoriteProperties(Long userId) {
         User user = getUserById(userId);
 

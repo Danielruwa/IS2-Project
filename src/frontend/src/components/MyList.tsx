@@ -4,6 +4,7 @@ import Util, {SERVER_URL} from "../utils/Util";
 import React, {useEffect, useRef, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import Close from "../assets/close.png"
+import Footer from "./Footer";
 
 export default function MyList() {
 
@@ -45,21 +46,6 @@ export default function MyList() {
         navigate(`/property/${property.propertyId}`);
     }
 
-    const handleOpenMenu = () => {
-        try {
-            menuToOpen.current.style.display = "flex";
-        } catch (err) {
-        }
-
-    }
-
-    const handleCloseMenu = () => {
-        try {
-            menuToOpen.current.style.display = "none";
-        } catch (err) {
-        }
-
-    }
 
     return (
         <>
@@ -107,16 +93,11 @@ export default function MyList() {
                                         </div>
 
                                         <div className="creation-details">
-                                            {property.location}
-                                        </div>
-                                        <div className="creation-details">
-                                            Created
-                                            by: {property.seller.name}
+                                            {`${property.location}  Created By: ${property.seller.name}`}
                                         </div>
 
-                                        <Link to={`/estimate?id=${property.propertyId}`}>
-                                            Estimate Value
-                                        </Link>
+                                        <Link className="btn-create" to={`/estimate?id=${property.propertyId}`}>Estimate Value</Link>
+
                                     </div>
                                 ))}
                         </div>
@@ -127,6 +108,8 @@ export default function MyList() {
                     </div>
                 </div>
             </div>
+
+            <Footer />
         </>
     )
 }

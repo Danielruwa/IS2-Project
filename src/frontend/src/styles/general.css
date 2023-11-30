@@ -914,3 +914,88 @@ checkbox {
     margin-top: 10px;
     display: block;
 }
+
+.footer {
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+    margin-top: 3em;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #232323;
+    position: sticky;
+
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 16px;
+}
+
+.footer-logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.footer-logo a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.footer-social {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.footer-social a {
+    margin: 0 10px;
+}
+
+.footer-social img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.footer-bottom {
+    margin-top: 20px;
+}
+
+.footer-bottom p {
+    font-size: 14px;
+    opacity: 0.7;
+    margin: 0;
+}
+
+.about-page {
+    color: #333;
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.about-content h2 {
+    color: #333;
+}
+
+.about-content p {
+    line-height: 1.6;
+}
+

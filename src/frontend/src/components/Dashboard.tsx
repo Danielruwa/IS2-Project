@@ -3,6 +3,7 @@ import TopNav from "./TopNav";
 import {Link} from "react-router-dom";
 import {SERVER_URL} from "../utils/Util";
 import {NotificationManager} from "react-notifications";
+import Footer from "./Footer";
 
 export default function Dashboard() {
     const [propertyCount, setPropertyCount]: any = useState(null);
@@ -55,6 +56,8 @@ export default function Dashboard() {
                     <p>View my profile and update changes if necessary</p>
                 </div>
             </div>
+
+            <Footer />
         </>
     );
 }
