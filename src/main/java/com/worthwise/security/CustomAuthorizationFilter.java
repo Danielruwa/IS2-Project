@@ -3,6 +3,7 @@ package com.worthwise.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.worthwise.utils.Constants;
@@ -38,7 +39,12 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                     String token = authorizationHeader.substring("Bearer ".length());
                     Algorithm algorithm = Algorithm.HMAC256("worthwise".getBytes());
                     JWTVerifier verifier = JWT.require(algorithm).build();
-                    DecodedJWT decodedJWT = verifier.verify(token);
+                    DecodedJWT decodedJWT = null;
+                    try{
+                       decodedJWT =verifier.verify(token);
+                    } catch (TokenExpiredException ex) {
+                        throw new Exception(ex);
+                    }
                     String username = decodedJWT.getSubject();
                     String[] roles = decodedJWT.getClaim("roles").asArray(String.class);
                     Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();

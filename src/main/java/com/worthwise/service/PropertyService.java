@@ -4,6 +4,7 @@ import com.worthwise.dao.PropertyDAO;
 import com.worthwise.entities.Property;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 import java.util.List;
@@ -27,14 +28,23 @@ public class PropertyService {
     }
 
     public Property createProperty(Property property) {
-        // Add validation logic if needed
         return propertyDAO.save(property);
     }
 
     public Property updateProperty(Long propertyId, Property updatedProperty) {
         Property existingProperty = propertyDAO.findById(propertyId).orElse(null);
         if (existingProperty != null) {
-            // todo: only if necessary
+            existingProperty.setName(updatedProperty.getName());
+            existingProperty.setDescription(updatedProperty.getDescription());
+            existingProperty.setSizeInSqft(updatedProperty.getSizeInSqft());
+            existingProperty.setRooms(updatedProperty.getRooms());
+            existingProperty.setLocation(updatedProperty.getLocation());
+            existingProperty.setGarages(updatedProperty.getGarages());
+            existingProperty.setOtherAmenities(updatedProperty.getOtherAmenities());
+            existingProperty.setSecurityRating(updatedProperty.getSecurityRating());
+            if(updatedProperty.getImage() != existingProperty.getImage() && updatedProperty.getImage() != null) {
+                existingProperty.setImage(updatedProperty.getImage());
+            }
             return propertyDAO.save(existingProperty);
         }
         return null;
@@ -84,4 +94,15 @@ public class PropertyService {
         return estimatedValue;
     }
 
+    public List<Property> getPropertyListing(Long sellerId) {
+        return propertyDAO.findAllBySeller_UserId(sellerId);
+    }
+
+    public List<Property> getSearchedProperties(String term) {
+        return propertyDAO.getSearchedProperties(term);
+    }
+
+    public long countPropertyBySeller(Long sellerId) {
+        return propertyDAO.countBySeller_UserId(sellerId);
+    }
 }

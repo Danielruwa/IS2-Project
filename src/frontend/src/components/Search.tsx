@@ -1,77 +1,66 @@
 import TopNav from "./TopNav";
-import {NotificationManager} from "react-notifications";
-import Util, {SERVER_URL} from "../utils/Util";
 import React, {useEffect, useRef, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
-import Close from "../assets/close.png"
+import {useNavigate} from "react-router-dom";
+import {SERVER_URL} from "../utils/Util";
+import {NotificationManager} from "react-notifications";
 
-export default function MyList() {
+export default function Search() {
 
-    document.title = "My Properties";
-    const user = JSON.parse(localStorage.getItem("user") ?? "{}");
-    let orgId: string | null = "";
-    const menuToOpen: any = useRef();
+    document.title = "Search";
+
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const param = new URLSearchParams(window.location.search);
+
+    useEffect(() => {
+        setSearchTerm(param.get("value") ?? "null");
+    })
 
     const navigate = useNavigate()
     const [properties, setProperties] = useState([]);
 
-    useEffect(() => {
-
-        const fetchProperties = async () => {
-            try {
-                const response = await fetch(SERVER_URL + 'property/listing/' + user.userId, {
-                    headers: {
-                        "Authorization": `Bearer ${localStorage.accessToken}`
-                    }
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    setProperties(data);
-                } else {
-                    // Handle error
-                    NotificationManager.error('Failed to fetch properties');
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                NotificationManager.error('An error occurred while fetching properties');
+    const fetchProperties = async () => {
+        try {
+            const response = await fetch(`${SERVER_URL}property/search?term=${searchTerm}`);
+            if (response.ok) {
+                const data = await response.json();
+                setProperties(data);
+            } else {
+                // Handle error
+                NotificationManager.error('Failed to fetch properties');
             }
-        };
+        } catch (error) {
+            console.error('Error:', error);
+            NotificationManager.error('An error occurred while fetching properties');
+        }
+    };
+
+    useEffect(() => {
 
         fetchProperties();
 
-    }, [orgId]);
+    }, []);
 
     const handleSelect = (property: any) => {
         navigate(`/property/${property.propertyId}`);
     }
 
-    const handleOpenMenu = () => {
-        try {
-            menuToOpen.current.style.display = "flex";
-        } catch (err) {
-        }
-
-    }
-
-    const handleCloseMenu = () => {
-        try {
-            menuToOpen.current.style.display = "none";
-        } catch (err) {
-        }
-
-    }
-
     return (
         <>
             <TopNav/>
+
             <div className="facility-wrapper">
                 <div className="filter-wrapper">
                     <div className="left">
-
+                        {/*todo: make this part interesting*/}
+                        <form className="search-form" onSubmit={fetchProperties}>
+                            <input required onChange={(e: any) => setSearchTerm(e.target.value)} name="value" type="search" className="search-box"/>
+                            <button onSubmit={fetchProperties} type={"submit"}>Search</button>
+                        </form>
                     </div>
                     <div className="right">
                         <div className="window-title">
-                            My Lists
+                            Search Results
                         </div>
                     </div>
                 </div>
@@ -82,10 +71,10 @@ export default function MyList() {
                     <div className="content-wrapper">
                         <div className="top">
                             <div className="title">
-                                My Property Listings
+                                Search Results
                             </div>
                             <div className="size">
-                                {properties.length} facilities
+                                {properties.length} properties
                             </div>
                         </div>
 
@@ -113,20 +102,17 @@ export default function MyList() {
                                             Created
                                             by: {property.seller.name}
                                         </div>
-
-                                        <Link to={`/estimate?id=${property.propertyId}`}>
-                                            Estimate Value
-                                        </Link>
                                     </div>
                                 ))}
                         </div>
 
                         <div className="copy count-value">
-                            &copy; {new Date().getFullYear()} | Worthwise
+                            &copy; {new Date().getFullYear()} | Eikal
                         </div>
                     </div>
                 </div>
             </div>
         </>
     )
+
 }

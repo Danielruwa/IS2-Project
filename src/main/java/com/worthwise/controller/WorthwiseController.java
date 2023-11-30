@@ -9,7 +9,9 @@ import com.worthwise.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -45,10 +47,10 @@ public class WorthwiseController {
     public String test() {
     return """
             {
-                "name": "Ejuku Albert Ikwang'",
+                "name": "Daniel Ruwa",
                 "country": "Kenya",
                 "occupation": "Software Engineer",
-                "email": "albertejuku92@gmail.com"
+                "email": "danr@gmail.com"
             }
             """;
     }
@@ -59,9 +61,31 @@ public class WorthwiseController {
     }
 
     @PutMapping("/user/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User user) {
-        return userService.updateUser(id, user);
+    public User updateUser(
+            @PathVariable Long id,
+            @RequestParam(value = "profilePicture", required = false) MultipartFile profilePicture,
+            @RequestParam(value = "name") String name,
+            @RequestParam(value = "email") String email,
+            @RequestParam(value = "phoneNumber") String phoneNumber
+    ) {
+        try {
+            byte[] profilePhoto = (profilePicture != null) ? profilePicture.getBytes() : null;
+
+            User updatedUser = new User();
+            updatedUser.setUserId(id);
+            updatedUser.setName(name);
+            updatedUser.setEmail(email);
+            updatedUser.setPhoneNumber(phoneNumber);
+            updatedUser.setProfilePhoto(profilePhoto);
+
+            // Update the user
+            return userService.updateUser(id, updatedUser);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
+
 
     // Buyer Functionalities Endpoints
     @GetMapping("/buyers")

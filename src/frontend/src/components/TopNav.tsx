@@ -34,7 +34,6 @@ export default function TopNav() {
         if (!decodedToken) {
             localStorage.removeItem("access_token");
             return <GuestNav/>
-
         }
 
         const user = JSON.parse(localStorage.getItem("user") ?? "{}");
@@ -107,9 +106,6 @@ const BuyerLoggedInNav: React.FC<Name> = ({name}) => {
 
             <div className="right-wrapper">
 
-                <Link to="/notification" className="notifications">
-                    <img src={Notification} alt=""/>
-                </Link>
                 <Link to={`/my-profile/${name}`} className="account">
                     <img src={Profile} alt=""/>
                 </Link>
@@ -153,9 +149,6 @@ const SellerLoggedInNav: React.FC<Name> = ({name}) => {
                 <button className="btn-create" onClick={() => navigate("/add-property")}>
                     Add Property
                 </button>
-                <Link to="/notification" className="notifications">
-                    <img src={Notification} alt=""/>
-                </Link>
                 <Link to={`/my-profile/${name}`} className="account">
                     <img src={Profile} alt=""/>
                 </Link>
@@ -175,12 +168,12 @@ export const Search = () => {
     const navigate = useNavigate();
 
     const onFormSubmit = () => {
-        navigate("/search?" + searchTerm);
+        navigate("/search?value=" + searchTerm);
     }
 
     return (
         <form className="search-form" onSubmit={onFormSubmit}>
-            <input required onChange={(e: any) => setSearchTerm(e.target.value)} type="search" className="search-box"/>
+            <input required onChange={(e: any) => setSearchTerm(e.target.value)} name="value" type="search" className="search-box"/>
             <button onSubmit={onFormSubmit} type={"submit"}>Search</button>
         </form>
     )

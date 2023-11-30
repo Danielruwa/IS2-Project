@@ -11,6 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -31,6 +32,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
 
     private final  AuthenticationManager authenticationManager;
 
+    @Transactional
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         String email = request.getParameter("email");
@@ -75,6 +77,7 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         tokens.put("access_token", accessToken);
         tokens.put("refresh_token", refreshToken);
         response.setContentType(APPLICATION_JSON_VALUE);
+        System.out.println(user);
         new ObjectMapper().writeValue(response.getOutputStream(), tokens);
     }
 

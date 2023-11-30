@@ -5,11 +5,13 @@ import LoginForm from "./components/LoginForm";
 import RegistrationForm from "./components/RegistrationForm";
 import Estimate from "./components/Estimate";
 import MyList from "./components/MyList";
-import Notifications from "./components/Notifications";
 import MyProfile from "./components/MyProfile";
 import AddProperty from "./components/AddProperty";
 import Dashboard from "./components/Dashboard";
 import Favorites from "./components/Favorites";
+import Search from "./components/Search";
+import Property from "./components/Property";
+import UpdatePropertyForm from "./components/UpdatePropertyForm";
 
 export default function Paths() {
     return (
@@ -22,10 +24,12 @@ export default function Paths() {
                 <Route path={"/dashboard"} element={<Dashboard/>}/>
                 <Route path={"/add-property"} element={<AddProperty/>}/>
                 <Route path={"/my-profile/:id"} element={<MyProfile/>}/>
-                <Route path={"/notifications"} element={<Notifications/>}/>
                 <Route path={"/my-list"} element={<MyList/>}/>
                 <Route path={"/estimate"} element={<Estimate/>}/>
                 <Route path={"/favorites"} element={<Favorites/>}/>
+                <Route path={"/search"} element={<Search/>}/>
+                <Route path={"/property/:id"} element={<Property/>}/>
+                <Route path={"/update-property/:id"} element={<UpdatePropertyForm/>}/>
             </Routes>
         </BrowserRouter>
     )

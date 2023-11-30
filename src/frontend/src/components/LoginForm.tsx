@@ -113,13 +113,9 @@ const LoginForm: React.FC = () => {
 
                     <div className="other-links">
                         <Link to="/register">Register</Link>
-                        <button type="button" className="forgot" onClick={() => window.alert("This functionality will be among last items to be integrated")}>
-                            Forgot Password?
-                        </button>
                     </div>
 
                 </div>
-
 
             </div>
 

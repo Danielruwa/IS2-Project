@@ -1,7 +1,9 @@
 package com.worthwise.service;
 
+import com.worthwise.dao.PropertyDAO;
 import com.worthwise.dao.UserDAO;
 import com.worthwise.entities.OneTimePassword;
+import com.worthwise.entities.Property;
 import com.worthwise.entities.User;
 import com.worthwise.utils.Validators;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -26,12 +27,14 @@ public class UserService implements UserDetailsService {
     private final UserDAO userDAO;
     private final EmailService emailService;
     private final OneTimePasswordService oneTimePasswordService;
+    private final PropertyService propertyService;
     private final PasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public List<User> getAllUsers() {
         return userDAO.findAll();
     }
 
+    @Transactional
     public User getUserById(Long userId) {
         return userDAO.findById(userId).orElse(null);
     }
@@ -51,11 +54,11 @@ public class UserService implements UserDetailsService {
             throw new IllegalArgumentException("Password must be at least 8 characters, including uppercase, lowercase, and digits");
         }
 
-        if(!Validators.isValidPhoneNumber(user.getPhoneNumber())) {
+        if (!Validators.isValidPhoneNumber(user.getPhoneNumber())) {
             throw new IllegalArgumentException("Invalid phone number provided");
         }
 
-        if(this.getUserByEmail(user.getEmail()) != null) {
+        if (this.getUserByEmail(user.getEmail()) != null) {
             throw new IllegalArgumentException("User with email: " + user.getEmail() + " already exists! Choose another email or login.");
         }
 
@@ -67,7 +70,12 @@ public class UserService implements UserDetailsService {
     public User updateUser(Long userId, User updatedUser) {
         User existingUser = userDAO.findById(userId).orElse(null);
         if (existingUser != null) {
-            // TODO: 10/29/23 This method is obsolete, not necessarily required.
+            existingUser.setName(updatedUser.getName());
+            existingUser.setEmail(updatedUser.getEmail());
+            existingUser.setPhoneNumber(updatedUser.getPhoneNumber());
+            if (updatedUser.getProfilePhoto() != null) {
+                existingUser.setProfilePhoto(updatedUser.getProfilePhoto());
+            }
             return userDAO.save(existingUser);
         }
         return null;
@@ -77,6 +85,7 @@ public class UserService implements UserDetailsService {
         userDAO.deleteById(userId);
     }
 
+    @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return getUserByEmail(username);
@@ -106,15 +115,15 @@ public class UserService implements UserDetailsService {
         }
 
         OneTimePassword otp = oneTimePasswordService.getOtpByEmailAndOTP(String.valueOf(map.get("email")), String.valueOf(map.get("otp")));
-        if(otp == null) {
+        if (otp == null) {
             return Map.of("message", "The OTP was not found", "status", false);
         }
 
-        if(otp.isUsed()) {
+        if (otp.isUsed()) {
             return Map.of("message", "The OTP has been used!", "status", false);
 
         }
-        if(otp.getExpiresOn().isBefore(LocalDateTime.now())) {
+        if (otp.getExpiresOn().isBefore(LocalDateTime.now())) {
             return Map.of("message", "The OTP has expired!", "status", false);
         }
         otp.setUsed(true);
@@ -125,6 +134,43 @@ public class UserService implements UserDetailsService {
         return Map.of("message", "Password has been updated successfully", "status", true);
     }
 
+    @Transactional
+    public void addFavoriteProperty(Long userId, Long propertyId) {
+        User user = getUserById(userId);
+        Property property = propertyService.getPropertyById(propertyId);
+
+        if (user != null && property != null) {
+            Set<Property> propertyList = new HashSet<>(user.getFavoriteListings());
+            if(user.getFavoriteListings().contains(property)) {
+                propertyList.remove(property);
+            } else {
+                propertyList.add(property);
+            }
+            user.setFavoriteListings(propertyList);
+            createUser(user);
+        }
+    }
+
+    @Transactional
+    public void removeFavoriteProperty(Long userId, Long propertyId) {
+        User user = getUserById(userId);
+        Property property = propertyService.getPropertyById(propertyId);
+
+        if (user != null && property != null) {
+            user.getFavoriteListings().remove(property);
+            createUser(user);
+        }
+    }
+
+    public List<Property> getFavoriteProperties(Long userId) {
+        User user = getUserById(userId);
+
+        if (user != null) {
+            return new ArrayList<>(user.getFavoriteListings());
+        }
+
+        return Collections.emptyList();
+    }
 
 
 }

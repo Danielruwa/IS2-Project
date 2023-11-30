@@ -26,8 +26,6 @@ export default class Util {
 
         const decodedToken = this.parseJwt(token);
         if ((decodedToken.exp * 1000) < Date.now()) {
-            // localStorage.removeItem("accessToken");
-            console.log("Time: ", new Date(decodedToken.exp * 1000))
             return null;
         }
         return decodedToken;
@@ -36,6 +34,20 @@ export default class Util {
     formatDate = (date: string, delimiter: string = "-"): string => {
         const d = new Date(date);
         return ("0" + d.getDate()).slice(-2) + delimiter + ("0" + (d.getMonth() + 1)).slice(-2) + delimiter + d.getFullYear();
+    }
+
+    formatMoney = (num: number): string => {
+        return new Intl.NumberFormat('en-KE', {
+            style: 'currency',
+            currency: 'KES',
+            minimumFractionDigits: 1,
+        }).format(num);
+    }
+    formatNumber = (num: number): string => {
+        const parts = num.toFixed(1).toString().split('.');
+        const integerPart = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        const decimalPart = parts[1];
+        return `${integerPart}.${decimalPart}`;
     }
 
 }

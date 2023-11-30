@@ -60,6 +60,12 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.pmml4s</groupId>
+			<artifactId>pmml4s_3</artifactId>
+			<version>1.0.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

@@ -1,39 +1,110 @@
 import React, { useState } from 'react';
 import TopNav from './TopNav';
-import Util from "../utils/Util";
+import Util, {SERVER_URL} from "../utils/Util";
+import {NotificationManager} from "react-notifications";
 
 const MyProfile = () => {
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user') ?? "{}"));
     const util: Util = new Util();
+    const [profilePicFile, setProfilePicFile] = useState(null);
+
 
     const handleSaveChanges = () => {
-        // Implement logic to save changes to localStorage or backend
+        if (profilePicFile) {
+            const img = new Image();
+            img.src = URL.createObjectURL(profilePicFile);
+
+            img.onload = () => {
+                if (img.width !== img.height) {
+                    NotificationManager.error('Profile picture must be a square. Please choose another image.');
+                    return;
+                }
+                updateProfile();
+            };
+        } else {
+            updateProfile();
+        }
+    };
+
+    const updateProfile = () => {
         localStorage.setItem('user', JSON.stringify(user));
-        // Display a success message or perform any necessary actions after saving the changes
-        console.log('Changes saved successfully!');
+
+
+        const formData = new FormData();
+
+        // Add user details
+        formData.append('name', user.name);
+        formData.append('email', user.email);
+        formData.append('phoneNumber', user.phoneNumber);
+
+        // Add profile picture if available
+        if (profilePicFile) {
+            formData.append('profilePicture', profilePicFile);
+        }
+
+        console.log(profilePicFile)
+
+        // Send the formData to the backend API
+        fetch(`${SERVER_URL}user/${user.userId}`, {
+            method: 'PUT',
+            headers: {
+                "Authorization": `Bearer ${localStorage.accessToken}`
+            },
+            body: formData,
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                NotificationManager.success("Profile updated successfully");
+                console.log(data);
+                localStorage.setItem('user', JSON.stringify(data));
+            })
+            .catch((error) => {
+                NotificationManager.error("Error updating profile: " + error);
+                console.error('Error updating profile:', error);
+            });
     };
 
     const handleProfilePicChange = (e: any) => {
-        // Handle profile picture upload logic here
-        // Update user.profilePhotoUrl with the uploaded image URL
+        const file = e.target.files[0];
+        // Validate if the selected file is an image
+        if (file && file.type.startsWith('image/')) {
+            setProfilePicFile(file);
+            const reader = new FileReader();
+            reader.onload = (e: any) => {
+                setUser({ ...user, profilePhotoUrl: e.target.result });
+            };
+            reader.readAsDataURL(file);
+        } else {
+            NotificationManager.warning('Please select a valid image file.');
+        }
     };
 
     return (
         <>
             <TopNav />
-            <div className="profile-content">
+            <div className="estimate-content">
                 <h2>User Profile</h2>
+                <div className="profile-pic-preview">
+                    {user.profilePhoto && (
+                        <img
+                            src={profilePicFile ? profilePicFile : `data:image/jpeg;base64, ${user.profilePhoto}`}
+                            alt="Profile"
+                            className="profile-picture"
+                        />
+                    )}
+                </div>
                 <div className="input-group">
-                    <div className="label">Profile Picture:</div>
+                    <label className="label">Profile Picture:</label>
                     <input
                         type="file"
                         accept="image/*"
-                        onChange={(e) => handleProfilePicChange(e)}
+                        onChange={handleProfilePicChange}
                         className="input-field"
                     />
                 </div>
+
                 <div className="input-group">
-                    <div className="label">Name:</div>
+                    <label className="label">Name:</label>
                     <input
                         type="text"
                         value={user.name}
@@ -42,7 +113,7 @@ const MyProfile = () => {
                     />
                 </div>
                 <div className="input-group">
-                    <div className="label">Email:</div>
+                    <label className="label">Email:</label>
                     <input
                         type="email"
                         value={user.email}
@@ -51,7 +122,7 @@ const MyProfile = () => {
                     />
                 </div>
                 <div className="input-group">
-                    <div className="label">Phone Number:</div>
+                    <label className="label">Phone Number:</label>
                     <input
                         type="text"
                         value={user.phoneNumber}
@@ -60,14 +131,15 @@ const MyProfile = () => {
                     />
                 </div>
                 <div className="input-group">
-                    <div className="label">Date Created:</div>
-                    <span className="readonly-field">{util.formatDate(user.dateCreated)}</span>
+                    <label className="label">Date Created:</label>
+                    <input type={"text"} disabled={true} className="readonly-field" value={util.formatDate(user.dateCreated)}/>
                 </div>
                 <div className="input-group">
-                    <div className="label">Role:</div>
-                    <span className="readonly-field">{user.role}</span>
+                    <label className="label">Role:</label>
+                    <input type={"text"} disabled={true} className="readonly-field" value={user.role}/>
+
                 </div>
-                <button onClick={handleSaveChanges} className="save-button">
+                <button onClick={handleSaveChanges} className="btn-add">
                     Save Changes
                 </button>
             </div>

@@ -1,10 +1,7 @@
 package com.worthwise.entities;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,12 +11,18 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Entity
 public class Property {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long propertyId;
+
+    private String name;
+
+    @Lob
+    private String description;
 
     private double sizeInSqft;
     private int rooms;
@@ -30,6 +33,11 @@ public class Property {
     private boolean hasPool;
     private String otherAmenities;
 
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    private byte[] image;
+
+
     @Column(name = "security_rating")
     private int securityRating; // 1-10 where 1 is very insecure and 10 extremely secure
 
@@ -37,13 +45,13 @@ public class Property {
 
     @ManyToOne
     @JoinColumn(name = "seller_id")
-    private Seller seller;
+    private User seller;
 
-    @ManyToMany(mappedBy = "favoriteListings")
-    private Set<Buyer> favoritedByBuyers;
+    @ManyToMany(mappedBy = "favoriteListings", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private Set<User> favoritedByBuyers;
 
     @ManyToMany(mappedBy = "viewedListings")
-    private Set<Buyer> viewedByBuyers;
+    private Set<User> viewedByBuyers;
 
     public Property(double sizeInSqft, int rooms, String location, double price, Date builtDate, int garages, boolean hasPool, String otherAmenities, int securityRating, double estimatedPrice) {
         this.sizeInSqft = sizeInSqft;
@@ -59,7 +67,8 @@ public class Property {
     }
 
     public Property(Long sellerId) {
-        seller = new Seller();
-        seller.setSellerId(sellerId);
+        seller = new User();
+        seller.setUserId(sellerId);
     }
+
 }
